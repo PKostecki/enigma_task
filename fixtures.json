@@ -1,0 +1,69 @@
+[
+    {
+        "model": "enigma_ecommerce.productcategory",
+        "pk": 1,
+        "fields": {
+            "name": "food"
+        }
+    },
+    {
+        "model": "enigma_ecommerce.product",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "name": "apples",
+            "price": "2.40",
+            "description": "Some tasty apples"
+        }
+    },
+    {
+        "model": "enigma_ecommerce.product",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "name": "bread",
+            "price": "3.70",
+            "description": "Some tasty bread"
+        }
+    },
+        {
+        "model": "enigma_ecommerce.product",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "name": "cheeseburger",
+            "price": "5",
+            "description": "Junk food :("
+        }
+    },
+        {
+        "model": "enigma_ecommerce.product",
+        "pk": 4,
+        "fields": {
+            "category": 1,
+            "name": "spaghetti",
+            "price": "10",
+            "description": "Carbonara is the best"
+        }
+    },
+        {
+        "model": "enigma_ecommerce.product",
+        "pk": 5,
+        "fields": {
+            "category": 1,
+            "name": "chocolate bar",
+            "price": "2",
+            "description": "Some sweet"
+        }
+    },
+        {
+        "model": "enigma_ecommerce.product",
+        "pk": 6,
+        "fields": {
+            "category": 1,
+            "name": "dumplings",
+            "price": "5.6",
+            "description": "Polish national food"
+        }
+    }
+]
