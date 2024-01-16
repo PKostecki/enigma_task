@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class ProductCategory(models.Model):
@@ -18,10 +21,26 @@ class Product(models.Model):
     image_thumbnail = models.ImageField(upload_to="product_images_thumbnails")
 
     class Meta:
-        ordering = ('pk', )
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.image_thumbnail:
+            self.create_thumbnail()
+
+    def create_thumbnail(self):
+        if self.image:
+            img = Image.open(self.image.path)
+            img.thumbnail((200, 200))
+            thumb_io = BytesIO()
+            img.save(thumb_io, format='JPEG')
+            thumbnail = InMemoryUploadedFile(thumb_io, None, f'{self.image.name.split(".")[0]}_thumbnail.jpg',
+                                             'image/jpeg', thumb_io.tell, None)
+            self.image_thumbnail.save(thumbnail.name, thumbnail, save=False)
+            super().save(update_fields=['image_thumbnail'])
 
 
 class Order(models.Model):

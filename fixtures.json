@@ -13,7 +13,9 @@
             "category": 1,
             "name": "apples",
             "price": "2.40",
-            "description": "Some tasty apples"
+            "description": "Some tasty apples",
+            "image": "product_images/apples.jpg",
+            "image_thumbnail": "product_images_thumbnails/apples_thumbnail.jpg"
         }
     },
     {

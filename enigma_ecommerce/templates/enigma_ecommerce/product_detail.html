@@ -4,4 +4,6 @@
 <p><strong>Price:</strong> {{ product.price }}</p>
 <p><strong>Description:</strong> {{ product.description }}</p>
 
-<img src="{{ product.image.url }}" alt="{{ product.name }}">
+<p><strong>Image:</strong><img src="{{ product.image.url }}" alt="{{ product.name }}"></p>
+
+<p><strong>Image thumbnail:</strong><img src="{{ product.image_thumbnail.url }}" alt="{{ product.name }} Thumbnail"></p>
