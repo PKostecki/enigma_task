@@ -1,0 +1,32 @@
+
+{% block content %}
+<table border="1">
+	<thead>
+		<tr>
+			<th><a href="?sort_by=name">name</a></th>
+			<th><a href="?sort_by=category">category</a></th>
+			<th>description</th>
+			<th><a href="?sort_by=price">price</a></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for obj in object_list %}
+		<tr>
+			<td>
+				{{obj.name}}
+			</td>
+			<td>
+				{{obj.category}}
+			</td>
+			<td>
+				{{obj.description}}
+			</td>
+			<td>
+				{{obj.price}}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% include "_pagination.html" %}
+{% endblock %}
