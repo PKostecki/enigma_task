@@ -23,5 +23,8 @@ urlpatterns = [
     path('product/<int:pk>/delete',
          views.ProductDeleteView.as_view(),
          name='product-delete'
-         )
+         ),
+    path('order/create',
+         views.OrderCreateView.as_view(),
+         name='create_order'),
 ]
