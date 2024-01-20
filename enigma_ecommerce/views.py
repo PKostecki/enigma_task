@@ -5,6 +5,13 @@ from .models import Product
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import ProductForm
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+
+def is_seller(user):
+    return user.groups.filter(name="Sellers").exists()
 
 
 def index(request):
@@ -27,6 +34,9 @@ class ProductDetailView(DetailView):
     model = Product
 
 
+@method_decorator(login_required, name="dispatch")
+@method_decorator(user_passes_test(lambda user: user.groups.filter(name="Sellers").exists(), login_url='login'),
+                  name='dispatch')
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
@@ -40,6 +50,9 @@ class ProductCreateView(CreateView):
         return super().form_invalid(form)
 
 
+@method_decorator(login_required, name="dispatch")
+@method_decorator(user_passes_test(lambda user: user.groups.filter(name="Sellers").exists(), login_url='login'),
+                  name='dispatch')
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
@@ -53,6 +66,9 @@ class ProductUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
+@method_decorator(login_required, name="dispatch")
+@method_decorator(user_passes_test(lambda user: user.groups.filter(name="Sellers").exists(), login_url='login'),
+                  name='dispatch')
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'generic_delete.html'
