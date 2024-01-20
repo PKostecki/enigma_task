@@ -1,17 +1,18 @@
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from .models import Product, Order
+from .models import Product, Order, OrderItem
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import ProductForm
+from .forms import ProductForm, OrderItemListForm
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm
 from django.http import JsonResponse
 from django.core.mail import send_mail
-
+from django.db.models import query
+from django.db.models import Count, Sum
 
 
 def is_seller(user):
@@ -109,3 +110,39 @@ class OrderCreateView(CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['customer'] = self.request.user
         return kwargs
+
+
+@method_decorator(login_required, name="dispatch")
+@method_decorator(user_passes_test(lambda user: user.groups.filter(name="Sellers").exists(), login_url='login'),
+                  name='dispatch')
+class OrderItemListView(ListView):
+    model = OrderItem
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+
+        form = OrderItemListForm(self.request.GET)
+        product_limit = 15
+
+        if form.is_valid():
+            queryset = self.get_queryset_from_time_period(queryset=queryset, form=form)
+            product_limit = form.cleaned_data.get('product_limit', product_limit)
+
+        queryset = queryset.values('product__name').annotate(num_orders=Count('order', distinct=True), total_quantity=Sum('quantity')).order_by('-num_orders')
+        queryset = queryset[:product_limit]
+
+        return super().get_context_data(
+            form=form,
+            object_list=queryset,
+            **kwargs)
+
+    @staticmethod
+    def get_queryset_from_time_period(queryset: query.QuerySet, form: OrderItemListForm) -> query.QuerySet:
+        if form.is_valid():
+            from_date = form.cleaned_data.get('from_date')
+            to_date = form.cleaned_data.get('to_date')
+
+            if from_date and to_date:
+                queryset = queryset.filter(order__order_date__range=[from_date, to_date])
+        return queryset

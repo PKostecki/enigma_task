@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="get" action="">
+  {{form.as_p}}
+  <button type="submit">search</button>
+</form>
+<table border="1">
+	<thead>
+		<tr>
+			<th>Product</th>
+			<th>Amount of orders</th>
+			<th>Quantity</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for obj in object_list %}
+		<tr>
+			<td>
+				{{obj.product__name}}
+			</td>
+			<td>
+				{{obj.num_orders}}
+			</td>
+			<td>
+				{{obj.total_quantity}}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% include "_pagination.html" %}
+{% endblock %}

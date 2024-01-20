@@ -43,3 +43,16 @@ class OrderForm(forms.ModelForm):
 
         order.save()
         return order
+
+
+class OrderItemListForm(forms.ModelForm):
+    from_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    to_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    product_limit = forms.IntegerField(required=False)
+
+    class Meta:
+        model = OrderItem
+        fields = ('from_date', 'to_date', 'product_limit')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
