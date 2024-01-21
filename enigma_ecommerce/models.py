@@ -1,9 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User
-from PIL import Image
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from datetime import datetime, timedelta
+from io import BytesIO
+
+from django.contrib.auth.models import User
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db import models
+from PIL import Image
 
 
 class ProductCategory(models.Model):
@@ -38,8 +39,14 @@ class Product(models.Model):
             img.thumbnail((200, 200))
             thumb_io = BytesIO()
             img.save(thumb_io, format='JPEG')
-            thumbnail = InMemoryUploadedFile(thumb_io, None, f'{self.image.name.split(".")[0]}_thumbnail.jpg',
-                                             'image/jpeg', thumb_io.tell, None)
+            thumbnail = InMemoryUploadedFile(
+                thumb_io,
+                None,
+                f'{self.image.name.split(".")[0]}_thumbnail.jpg',
+                'image/jpeg',
+                thumb_io.tell,
+                None,
+            )
             self.image_thumbnail.save(thumbnail.name, thumbnail, save=False)
             super().save(update_fields=['image_thumbnail'])
 
@@ -62,7 +69,9 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
         if not self.total_price:
-            total_price = sum(item.product.price * item.quantity for item in self.orderitem_set.all())
+            total_price = sum(
+                item.product.price * item.quantity for item in self.orderitem_set.all()
+            )
             self.total_price = total_price
 
         super().save(*args, **kwargs)

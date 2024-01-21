@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
-from dotenv import load_dotenv
 import os
-from datetime import timedelta
+from pathlib import Path
+
 from celery.schedules import crontab
+from dotenv import load_dotenv
 
 # Load environment
 load_dotenv()

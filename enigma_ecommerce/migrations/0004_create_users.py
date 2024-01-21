@@ -1,5 +1,5 @@
+from django.contrib.auth.models import Group, User
 from django.db import migrations
-from django.contrib.auth.models import User, Group
 
 
 def create_users_and_assign_to_groups(apps, schema_editor):
@@ -24,7 +24,7 @@ def create_users_and_assign_to_groups(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ('enigma_ecommerce', '0002_create_groups'),
-        ('enigma_ecommerce', '0003_create_superuser')
+        ('enigma_ecommerce', '0003_create_superuser'),
     ]
 
     operations = [

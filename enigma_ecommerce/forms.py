@@ -1,5 +1,6 @@
 from django import forms
-from .models import Product, Order, OrderItem
+
+from .models import Order, OrderItem, Product
 
 
 class ProductForm(forms.ModelForm):
@@ -9,9 +10,7 @@ class ProductForm(forms.ModelForm):
 
 
 class OrderForm(forms.ModelForm):
-    product = forms.ModelChoiceField(
-        queryset=Product.objects.all()
-    )
+    product = forms.ModelChoiceField(queryset=Product.objects.all())
     quantity = forms.IntegerField()
 
     def __init__(self, *args, **kwargs):
@@ -35,9 +34,7 @@ class OrderForm(forms.ModelForm):
             quantity = self.cleaned_data['quantity']
 
             order_item = OrderItem.objects.create(
-                order=order,
-                product=product,
-                quantity=quantity
+                order=order, product=product, quantity=quantity
             )
             order_item.save()
 
@@ -46,8 +43,12 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderItemListForm(forms.ModelForm):
-    from_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
-    to_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    from_date = forms.DateField(
+        required=False, widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    to_date = forms.DateField(
+        required=False, widget=forms.DateInput(attrs={'type': 'date'})
+    )
     product_limit = forms.IntegerField(required=False)
 
     class Meta:
