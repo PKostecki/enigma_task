@@ -25,7 +25,9 @@
             "category": 1,
             "name": "bread",
             "price": "3.70",
-            "description": "Some tasty bread"
+            "description": "Some tasty bread",
+            "image": "product_images/bread.jpg",
+            "image_thumbnail": "product_images_thumbnails/bread_thumbnail.jpg"
         }
     },
         {
@@ -35,7 +37,9 @@
             "category": 1,
             "name": "cheeseburger",
             "price": "5",
-            "description": "Junk food :("
+            "description": "Junk food :(",
+            "image": "product_images/cheeseburger.jpg",
+            "image_thumbnail": "product_images_thumbnails/cheeseburger_thumbnail.jpg"
         }
     },
         {
@@ -45,7 +49,9 @@
             "category": 1,
             "name": "spaghetti",
             "price": "10",
-            "description": "Carbonara is the best"
+            "description": "Carbonara is the best",
+            "image": "product_images/spaghetti.jpg",
+            "image_thumbnail": "product_images_thumbnails/spaghetti_thumbnail.jpg"
         }
     },
         {
@@ -55,7 +61,9 @@
             "category": 1,
             "name": "chocolate bar",
             "price": "2",
-            "description": "Some sweet"
+            "description": "Some sweet",
+            "image": "product_images/chocolate_bar.jpg",
+            "image_thumbnail": "product_images_thumbnails/chocolate_bar_thumbnail.jpg"
         }
     },
         {
@@ -65,7 +73,9 @@
             "category": 1,
             "name": "dumplings",
             "price": "5.6",
-            "description": "Polish national food"
+            "description": "Polish national food",
+            "image": "product_images/dumplings.jpg",
+            "image_thumbnail": "product_images_thumbnails/dumplings_thumbnail.jpg"
         }
     }
 ]

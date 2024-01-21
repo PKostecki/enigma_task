@@ -11,3 +11,4 @@
     EMAIL_HOST_PASSWORD = 
 ```
 2. Run `make run`
+3. Remember that you need Redis and Celery.
