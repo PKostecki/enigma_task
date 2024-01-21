@@ -1,4 +1,4 @@
-.PHONY: init tests help
+.PHONY: init run help
 
 help:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -12,9 +12,9 @@ init:  ## Initialize repository: install pre-commit
 
 run: ## Run project
 	${INFO} "Running project"
-	celery -A enigma_recruitment_task worker -l info
-	celery -A enigma_recruitment_task beat -l info
-	python manage.py runserver
+    celery -A enigma_recruitment_task worker -l info &
+	celery -A enigma_recruitment_task beat -l info &
+	python manage.py runserver &
 
 # Colors
 YELLOW := "\e[1;33m"
