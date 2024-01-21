@@ -7,4 +7,9 @@ app = Celery('enigma_recruitment_task')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+app.conf.beat_schedule = {'every 24h': {
+    "task": "send_payment_reminder_email",
+    'schedule': 86400.0,
+}}
+
 app.autodiscover_tasks()

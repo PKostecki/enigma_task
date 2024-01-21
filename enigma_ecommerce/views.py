@@ -94,15 +94,9 @@ class OrderCreateView(CreateView):
     def form_valid(self, form):
         super().form_valid(form)
 
-        # product_names = [item.product.name for item in self.object.orderitem_set.all()]
-        send_email.delay("Topic", "Some message", EMAIL_HOST_USER, "setakasxi.gm.pl@gmail.com")
-        # send_mail(
-        #     f"Order {self.object.pk}",
-        #     f"Thank you for ordering {', '.join(product_names)}.\nTotal Price: {self.object.total_price}",
-        #     None,
-        #     ["sometest_mail@gmail.com"],
-        #     fail_silently=False,
-        # )
+        product_names = [item.product.name for item in self.object.orderitem_set.all()]
+        send_email.delay(f"Order {self.object.pk}", f"Thank you for ordering {', '.join(product_names)}.\nTotal Price: {self.object.total_price}", EMAIL_HOST_USER, self.object
+                         .customer.email)
         return JsonResponse({"total_price": self.object.total_price, "payment_due_date": self.object.payment_due_date})
 
     def form_invalid(self, form):
