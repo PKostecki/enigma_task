@@ -148,6 +148,6 @@ CELERY_TIMEZONE = "UTC"
 CELERY_BEAT_SCHEDULE = {
     "send_payment_reminder_email_task": {
         "task": "send_payment_reminder_email",
-        "schedule": crontab(minute="*/1"),
+        "schedule": crontab(hour="*/12"),
     },
 }
