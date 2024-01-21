@@ -1,8 +1,9 @@
 ## To install project:
-1. Run `make init`
+1. Create venv
+2. Run `make init`
 
 ## Run project
-1. Set your own environment variables like email. Listed below:
+1. Set your own environment variables like email in `.env`. Listed below:
 ```
     EMAIL_HOST = 
     EMAIL_PORT = 
